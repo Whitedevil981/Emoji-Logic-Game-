@@ -27,51 +27,6 @@
     </style>
 </head>
 <body>
-    <h1>Emoji Logic Game</h1>
-    <p>Click on the emojis to select them. Try to find the correct combination!</p>
-    <div id="emoji-container"></div>
-    <button id="check-button">Check Combination</button>
-    <div id="result"></div>
-
-    <script>
-        const emojis = ["😀", "😂", "😍", "😎", "🤔", "😢", "😡", "🥳"];
-        const selectedEmojis = [];
-        const correctCombination = ["😀", "😂", "😍"];
-
-        function createEmojiElements() {
-            const container = document.getElementById('emoji-container');
-            emojis.forEach(emoji => {
-                const emojiElement = document.createElement('span');
-                emojiElement.textContent = emoji;
-                emojiElement.className = 'emoji';
-                emojiElement.addEventListener('click', () => selectEmoji(emojiElement));
-                container.appendChild(emojiElement);
-            });
-        }
-        function selectEmoji(emojiElement) {
-            if (selectedEmojis.includes(emojiElement.textContent)) {
-                emojiElement.classList.remove('selected');
-                selectedEmojis.splice(selectedEmojis.indexOf(emojiElement.textContent), 1);
-            } else {
-                emojiElement.classList.add('selected');
-                selectedEmojis.push(emojiElement.textContent);
-            }
-        }
-        function checkCombination() {
-            const resultElement = document.getElementById('result');
-            if (selectedEmojis.length !== correctCombination.length) {
-                resultElement.textContent = "Incorrect! Try again.";
-                return;
-            }
-            const isCorrect = selectedEmojis.every((emoji, index) => emoji === correctCombination[index]);
-            if (isCorrect) {
-                resultElement.textContent = "Congratulations! You found the correct combination!";
-            } else {
-                resultElement.textContent = "Incorrect! Try again.";
-            }
-        }
-        document.getElementById('check-button').addEventListener('click', checkCombination);
-        createEmojiElements();
-    </script>
-</body>
-</html>
+    
+    <h1>Emoji Logic Game </h1>
+    
