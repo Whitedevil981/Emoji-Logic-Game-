@@ -29,4 +29,59 @@
 <body>
     
     <h1>Emoji Logic Game </h1>
-    <h2>
+    <h2 id="question">loading...</h2>
+    <div id=""choices></div>
+
+    <br>
+    <button onclick="checkanswer()">Check Answer</button>
+    <button onclick="nestlevel()" style="display:none;" id="nextbtn">Next Level</button>
+
+    <p id="result"></p>
+    <p>Score: <span id="score">0</span></p>
+
+    <script>
+        const levels = [
+            {
+                question: "🔥 + 🍕 = ?",
+                options:  ["😋", "🥵", "😡", "❤️"],
+                answer: "😋 "
+            },
+            {
+                question: "🍔 + 🍟 = ?",
+                options: ["😋", "🥵", "😡", "❤️"],
+                answer: "😋"
+            },
+            {
+                question: "🍕 + 🍔 = ?",
+                options: ["😋", "🥵", "😡", "❤️"],
+                answer: "😋"
+            },
+            {
+                question: "🍕 + 🍔 = ?",
+                options: ["😋", "🥵", "😡", "❤️"],
+                answer: "😋"
+            },
+            {
+                question: "🚗 + 💧 = ?",
+                options:  ["🧼", "💨", "🌊", "💥"],
+                answer: "💨"
+            },
+            {
+                question: "🌧️ + 🌈 = ?",
+                options: ["😊", "🌞", "😢", "⚡"],
+                answer: "😊"
+            }
+        ];
+
+        let currentLevel = 0;
+        let swelected = null ;
+        let score = 0;
+
+        function loadlevel() {
+            document.getElementById('result').textContent = '';
+            document.getElementById('nextbtn').style.display = 'none';
+            selected=null;
+
+            const level = levels[currentLevel];
+            document.getElementById('question').textcontent = level.question;
+            
