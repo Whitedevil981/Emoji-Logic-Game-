@@ -84,4 +84,52 @@
 
             const level = levels[currentLevel];
             document.getElementById('question').textcontent = level.question;
-            
+
+            const choicesDiv = document.getElementById('choices');
+            choicesDiv.innerHTML = '';
+            level.options.forEach(emoji => {
+        const span = document.createElement('span');
+        span.textContent = emoji;
+        span.classList.add('emoji');
+        span.addEventListener('click', () => {
+          document.querySelectorAll('.emoji').forEach(e => e.classList.remove('selected'));
+          span.classList.add('selected');
+          selected = emoji;
+        });
+        choicesDiv.appendChild(span);
+      });
+    }
+
+    function checkAnswer() {
+      if (!selected) {
+        document.getElementById('result').textContent = "Please select an emoji!";
+        return;
+      }
+      const correct = levels[currentLevel].answer;
+      if (selected === correct) {
+        document.getElementById('result').textContent = "✅ Correct!";
+        score++;
+        document.getElementById('score').textContent = score;
+        document.getElementById('nextBtn').style.display = 'inline';
+      } else {
+        document.getElementById('result').textContent = "❌ Try again!";
+      }
+    }
+
+    function nextLevel() {
+      currentLevel++;
+      if (currentLevel < levels.length) {
+        loadLevel();
+      } else {
+        document.getElementById('question').textContent = "🎉 You completed all levels!";
+        document.getElementById('choices').innerHTML = '';
+        document.getElementById('nextBtn').style.display = 'none';
+        document.getElementById('result').textContent = `Final Score: ${score}/${levels.length}`;
+      }
+    }
+
+    loadLevel();
+  </script>
+
+</body>
+</html>
