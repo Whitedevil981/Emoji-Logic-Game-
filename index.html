@@ -266,7 +266,27 @@
         document.getElementById('result').textContent = "✅ Correct!";
         score++;
         document.getElementById('score').textContent = score;
-        document.getElementById('nextBtn').style.display = 'inline';
+        function checkAnswer() {
+  if (!selected) {
+    document.getElementById('result').textContent = "Please select an emoji!";
+    return;
+  }
+
+  const correct = levels[currentLevel].answer;
+  if (selected === correct) {
+    document.getElementById('result').textContent = "✅ Correct!";
+    score++;
+    document.getElementById('score').textContent = score;
+  } else {
+    document.getElementById('result').textContent = "❌ Try again!";
+  }
+
+  // Automatically go to next level after 1.5 seconds
+  setTimeout(() => {
+    nextLevel();
+  }, 1500);
+}
+
       } else {
         document.getElementById('result').textContent = "❌ Try again!";
       }
