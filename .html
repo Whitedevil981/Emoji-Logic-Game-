@@ -1,112 +1,106 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Emoji Logiv Game</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            text-align: center;
-            padding: 30px;
-        }
-        .emoji {
-            font-size: 50px;
-            margin: 10px;
-            cursor: pointer;
-            display: inline-block;
-            padding: 10px;
-        }
-        .selected {
-            border: 3px solid #3498db;
-            border-radius: 10px;
-            background-color: #ecf0f1;
-        }
-        #result {
-            font-size: 24px;
-            margin-top: 15px;
-        }
-    </style>
+  <title>Emoji Logic Game</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 30px;
+    }
+    .emoji {
+      font-size: 50px;
+      margin: 10px;
+      cursor: pointer;
+      display: inline-block;
+      padding: 10px;
+    }
+    .selected {
+      border: 3px solid #3498db;
+      border-radius: 10px;
+      background-color: #ecf0f1;
+    }
+    #result {
+      font-size: 24px;
+      margin-top: 15px;
+    }
+  </style>
 </head>
 <body>
-    
-    <h1>Emoji Logic Game </h1>
-    <h2 id="question">loading...</h2>
-    <div id="choices"></div>
 
-    <br>
-    <button onclick="checkanswer()">Check Answer</button>
-    <button onclick="nestlevel()" style="display:none;" id="nextbtn">Next Level</button>
+  <h1>Emoji Logic Game</h1>
+  <h2 id="question">Loading...</h2>
+  <div id="choices"></div>
 
-    <p id="result"></p>
-    <p>Score: <span id="score">0</span></p>
+  <br>
+  <button onclick="checkAnswer()">Check Answer</button>
+  <button onclick="nextLevel()" style="display:none;" id="nextBtn">Next Level</button>
 
-    <script>
-        const levels = [
-            {
-                question: "🔥 + 🍕 = ?",
-                options:  ["😋", "🥵", "😡", "❤️"],
-                answer: "😋"
-            },
-            {
-                question: "🍔 + 🍟 = ?",
-                options: ["😋", "🥵", "😡", "❤️"],
-                answer: "😋"
-            },
-            // Removed duplicate question for better game variety
-            {
-                question: "🍕 + 🍔 = ?",
-                options: ["😋", "🥵", "😡", "❤️"],
-                answer: "😋"
-            },
-            {
-                question: "🚗 + 💧 = ?",
-                options:  ["🧼", "💨", "🌊", "💥"],
-                answer: "💨"
-            },
-            {
-                question: "🌧️ + 🌈 = ?",
-                options: ["😊", "🌞", "😢", "⚡"],
-                answer: "😊"
-            }
-        ];
+  <p id="result"></p>
+  <p>Score: <span id="score">0</span></p>
 
-        let currentLevel = 0;
-        let selected = null ;
-        let score = 0;
+  <script>
+    const levels = [
+      {
+        question: "🔥 + 🍕 = ?",
+        options: ["😋", "🥵", "😡", "❤️"],
+        answer: "😋"
+      },
+      {
+        question: "🚗 + 💧 = ?",
+        options: ["🧼", "💨", "🌊", "💥"],
+        answer: "🧼"
+      },
+      {
+        question: "🌧️ + 🌈 = ?",
+        options: ["😊", "🌞", "😢", "⚡"],
+        answer: "😊"
+      },
+      {
+        question: "🐄 + 🥛 = ?",
+        options: ["✅", "🐮", "🥩", "🧈"],
+        answer: "✅"
+      }
+    ];
 
-        function loadlevel() {
-            document.getElementById('result').textContent = '';
-            document.getElementById('nextbtn').style.display = 'none';
-            swelected = null;
+    let currentLevel = 0;
+    let selected = null;
+    let score = 0;
 
-            const level = levels[currentLevel];
-            document.getElementById('question').textContent = level.question;
+    function loadLevel() {
+      document.getElementById('result').textContent = '';
+      document.getElementById('nextBtn').style.display = 'none';
+      selected = null;
 
-            const choicesDiv = document.getElementById('choices');
-            choicesDiv.innerHTML = '';
-            level.options.forEach(emoji => {
+      const level = levels[currentLevel];
+      document.getElementById('question').textContent = level.question;
+
+      const choicesDiv = document.getElementById('choices');
+      choicesDiv.innerHTML = '';
+      level.options.forEach(emoji => {
         const span = document.createElement('span');
         span.textContent = emoji;
         span.classList.add('emoji');
         span.addEventListener('click', () => {
           document.querySelectorAll('.emoji').forEach(e => e.classList.remove('selected'));
           span.classList.add('selected');
-          swelected = emoji;
+          selected = emoji;
         });
         choicesDiv.appendChild(span);
       });
     }
 
     function checkAnswer() {
-      if (!swelected) {
+      if (!selected) {
         document.getElementById('result').textContent = "Please select an emoji!";
         return;
       }
       const correct = levels[currentLevel].answer;
-      if (swelected === correct) {
+      if (selected === correct) {
         document.getElementById('result').textContent = "✅ Correct!";
         score++;
         document.getElementById('score').textContent = score;
-        document.getElementById('nextbtn').style.display = 'inline';
+        document.getElementById('nextBtn').style.display = 'inline';
       } else {
         document.getElementById('result').textContent = "❌ Try again!";
       }
@@ -115,11 +109,11 @@
     function nextLevel() {
       currentLevel++;
       if (currentLevel < levels.length) {
-        loadlevel();
+        loadLevel();
       } else {
         document.getElementById('question').textContent = "🎉 You completed all levels!";
         document.getElementById('choices').innerHTML = '';
-        document.getElementById('nextbtn').style.display = 'none';
+        document.getElementById('nextBtn').style.display = 'none';
         document.getElementById('result').textContent = `Final Score: ${score}/${levels.length}`;
       }
     }
